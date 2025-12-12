@@ -1,4 +1,5 @@
 // ========== CONFIGURAZIONE FIREBASE ==========
+window.addEventListener('load', () => { // Ensure DOM is ready
 const firebaseConfig = {
   apiKey: "AIzaSyCJ-k4qQnokmNbzBGB4QqFaZ4zRcGe24",
   authDomain: "amantisegreti.firebaseapp.com",
@@ -430,3 +431,6 @@ function setupQuestionLogic(questionCard, index) {
 allQuestions.forEach((card, index) => setupQuestionLogic(card, index));
 
 
+
+
+}); // Chiude window.addEventListener('load')
