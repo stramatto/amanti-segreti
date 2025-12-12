@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Amanti Segreti</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- ========== SCHERMATA 1: LOGIN CON DATA DI NASCITA ========== -->
+    <section id="screen-login">
+      <div class="logo-box">
+        <div class="logo-wrapper">
+          <!-- LOGO ANIMATO PARTENZA DA look1.png -->
+          <img src="look1.png" alt="Amanti Segreti" class="logo-img" id="logo-img">
+          <div class="logo-number" id="logo-number"></div>
+        </div>
+        <p class="tagline">messaggi piccanti anonimi</p>
+      </div>
+
+      <div class="card">
+        <p class="center-text">Indica la tua data di nascita per accedere</p>
+        <div class="dob-row">
+          <select id="dob-day"></select>
+          <select id="dob-month"></select>
+          <select id="dob-year"></select>
+        </div>
+        <button id="btn-enter">Entra</button>
+        <p id="login-error" class="error"></p>
+      </div>
+    </section>
+
+    <!-- ========== SCHERMATA 2: CHAT PUBBLICA + AFFINITÀ ========== -->
+    <section id="screen-chat" class="hidden">
+      <header class="top-bar">
+        <div class="top-left">
+          <div class="logo-mini"></div>
+          <div class="app-name">Amanti Segreti</div>
+          <div class="user-number" id="user-number-label">Questa sera sei il numero ???</div>
+        </div>
+      </header>
+
+      <main class="main-area">
+        <!-- Tab pubblica -->
+        <div class="tabs">
+          <button class="tab active" id="tab-public">Pubblica</button>
+        </div>
+
+        <!-- Lista messaggi pubblici -->
+        <div id="public-messages" class="messages-list">
+          <!-- Qui compariranno i messaggi pubblici -->
+        </div>
+
+        <!-- Input messaggio -->
+        <div class="message-input">
+          <input type="text" id="public-text" placeholder="Scrivi un messaggio pubblico anonimo...">
+          <button id="btn-send-public">Invia</button>
+        </div>
+
+        <!-- Box affinità -->
+        <div class="affinity-box">
+          <p>Digita il numero della persona con cui vuoi conoscere l'affinità</p>
+          <div class="affinity-row">
+            <input type="number" id="affinity-target" placeholder="Es. 342">
+            <button id="btn-affinity">Scopri affinità</button>
+          </div>
+
+          <!-- RISULTATO AFFINITÀ: CUORE, BARRA, TESTO -->
+          <div id="affinity-result" class="affinity-result">
+            <div class="affinity-heart" id="affinity-heart">❤️</div>
+            <div class="affinity-bar">
+              <div class="affinity-bar-fill" id="affinity-fill"></div>
+            </div>
+            <div class="affinity-text-row">
+              <div class="affinity-text">Affinità astrologica <span id="affinity-percent">0</span>%</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTONE RICERCA PIÙ APPROFONDITA -->
+        <div class="affinity-more">
+          <button id="btn-advanced" class="affinity-advanced-btn">Ricerca più approfondita</button>
+        </div>
+      </main>
+    </section>
+
+    <!-- ========== SCHERMATA 3: PROFILAZIONE INTRO (STEP 1 e 2) ========== -->
+    <div id="screen-profile-intro" class="card hidden">
+      <div class="center-text profile-intro-content">
+        <!-- STEP 1: Prima frase -->
+        <div id="profile-step1" class="profile-step">
+          <h2 class="profile-title">Crea il tuo profilo privato</h2>
+          <p class="profile-subtitle">per attivare le funzionalità avanzate</p>
+          <img src="ok.png" alt="OK" class="ok-heart" id="profile-ok-step1">
+        </div>
+
+        <!-- STEP 2: Seconda frase (entra dal basso) -->
+        <div id="profile-step2" class="profile-step hidden">
+          <h2 class="profile-title">Aiutaci a conoscerti meglio</h2>
+          <p class="profile-subtitle">rispondendo onestamente alle prossime domande</p>
+          <img src="ok.png" alt="OK" class="ok-heart" id="profile-ok-step2">
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== SCHERMATA 4: DOMANDE Q1 (SÌ / NO / NON SAPREI) ========== -->
+    <div id="screen-profile-q1" class="card hidden">
+      <div class="questions-wrapper">
+        
+        <!-- DOMANDA 1: L'AMORE È CIECO -->
+        <div class="question-card" data-key="loveBlind" data-question="q_loveBlind">
+          <div class="question-title-pill">L'AMORE È CIECO</div>
+          <div class="question-options">
+            <label class="question-option">
+              <input type="radio" name="q_loveBlind" value="no">
+              <span>Non per me</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_loveBlind" value="yes">
+              <span>Direi di sì</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_loveBlind" value="unsure">
+              <span>Non saprei</span>
+            </label>
+            <img src="ok.png" alt="OK" class="ok-lock" data-question="loveBlind">
+          </div>
+        </div>
+
+        <!-- DOMANDA 2: FOLLIE PER AMORE -->
+        <div class="question-card hidden" data-key="crazyForLove" data-question="q_crazyForLove">
+          <div class="question-title-pill">FOLLIE PER AMORE</div>
+          <div class="question-options">
+            <label class="question-option">
+              <input type="radio" name="q_crazyForLove" value="no">
+              <span>Non per me</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_crazyForLove" value="yes">
+              <span>Direi di sì</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_crazyForLove" value="unsure">
+              <span>Non saprei</span>
+            </label>
+            <img src="ok.png" alt="OK" class="ok-lock" data-question="crazyForLove">
+          </div>
+        </div>
+
+        <!-- DOMANDA 3: RELAZIONI A DISTANZA -->
+        <div class="question-card hidden" data-key="longDistance" data-question="q_longDistance">
+          <div class="question-title-pill">RELAZIONI A DISTANZA</div>
+          <div class="question-options">
+            <label class="question-option">
+              <input type="radio" name="q_longDistance" value="no">
+              <span>Non per me</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_longDistance" value="yes">
+              <span>Direi di sì</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_longDistance" value="unsure">
+              <span>Non saprei</span>
+            </label>
+            <img src="ok.png" alt="OK" class="ok-lock" data-question="longDistance">
+          </div>
+        </div>
+
+        <!-- DOMANDA 4: L'AMORE NON HA ETÀ -->
+        <div class="question-card hidden" data-key="loveNoAge" data-question="q_loveNoAge">
+          <div class="question-title-pill">L'AMORE NON HA ETÀ</div>
+          <div class="question-options">
+            <label class="question-option">
+              <input type="radio" name="q_loveNoAge" value="no">
+              <span>Non per me</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_loveNoAge" value="yes">
+              <span>Direi di sì</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_loveNoAge" value="unsure">
+              <span>Non saprei</span>
+            </label>
+            <img src="ok.png" alt="OK" class="ok-lock" data-question="loveNoAge">
+          </div>
+        </div>
+
+        <!-- DOMANDA 5: BUGIA A FIN DI BENE -->
+        <div class="question-card hidden" data-key="nobleLie" data-question="q_nobleLie">
+          <div class="question-title-pill">BUGIA A FIN DI BENE</div>
+          <div class="question-options">
+            <label class="question-option">
+              <input type="radio" name="q_nobleLie" value="no">
+              <span>Non per me</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_nobleLie" value="yes">
+              <span>Direi di sì</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_nobleLie" value="unsure">
+              <span>Non saprei</span>
+            </label>
+            <img src="ok.png" alt="OK" class="ok-lock" data-question="nobleLie">
+          </div>
+        </div>
+
+        <!-- DOMANDA 6: SESSO AL PRIMO APPUNTAMENTO -->
+        <div class="question-card hidden" data-key="firstDateSex" data-question="q_firstDateSex">
+          <div class="question-title-pill">SESSO AL PRIMO APPUNTAMENTO</div>
+          <div class="question-options">
+            <label class="question-option">
+              <input type="radio" name="q_firstDateSex" value="no">
+              <span>Non per me</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_firstDateSex" value="yes">
+              <span>Direi di sì</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_firstDateSex" value="unsure">
+              <span>Non saprei</span>
+            </label>
+            <img src="ok.png" alt="OK" class="ok-lock" data-question="firstDateSex">
+          </div>
+        </div>
+
+        <!-- DOMANDA 7: SPERIMENTARE FANTASIE -->
+        <div class="question-card hidden" data-key="experimentFantasies" data-question="q_experimentFantasies">
+          <div class="question-title-pill">SPERIMENTARE FANTASIE</div>
+          <div class="question-options">
+            <label class="question-option">
+              <input type="radio" name="q_experimentFantasies" value="no">
+              <span>Non per me</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_experimentFantasies" value="yes">
+              <span>Direi di sì</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_experimentFantasies" value="unsure">
+              <span>Non saprei</span>
+            </label>
+            <img src="ok.png" alt="OK" class="ok-lock" data-question="experimentFantasies">
+          </div>
+        </div>
+
+        <!-- DOMANDA 8: PERDONARE UN TRADIMENTO -->
+        <div class="question-card hidden" data-key="forgiveCheating" data-question="q_forgiveCheating">
+          <div class="question-title-pill">PERDONARE UN TRADIMENTO</div>
+          <div class="question-options">
+            <label class="question-option">
+              <input type="radio" name="q_forgiveCheating" value="no">
+              <span>Non per me</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_forgiveCheating" value="yes">
+              <span>Direi di sì</span>
+            </label>
+            <label class="question-option">
+              <input type="radio" name="q_forgiveCheating" value="unsure">
+              <span>Non saprei</span>
+            </label>
+            <img src="ok.png" alt="OK" class="ok-lock" data-question="forgiveCheating">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Audio click lucchetto -->
+    <audio id="lock-sound" src="click-lock.mp3" preload="auto"></audio>
+
+    <!-- Firebase compat da CDN -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+    <!-- Il tuo script deve venire dopo Firebase -->
+    <script src="app.js"></script>
+  </div>
+</body>
+</html>
