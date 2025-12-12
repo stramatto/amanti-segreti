@@ -350,4 +350,82 @@ const profileOkStep2 = document.getElementById('profile-ok-step2');
 let profileAnswersQ1 = {};
 let currentQuestionIndex = 0;
 
-const advance
+const advancedBtn = document.getElementById('btn-advanced');
+
+advancedBtn.addEventListener('click', () => {
+  chatScreen.classList.add('hidden');
+  screenProfileIntro.classList.remove('hidden');
+  profileStep1.classList.remove('hidden');
+  profileStep2.classList.add('hidden');
+  currentQuestionIndex = 0;
+});
+
+// ========== 11. GESTIONE PROFILAZIONE (STEP 1 e 2) ==========
+
+profileOkStep1.addEventListener('click', () => {
+  profileOkStep1.classList.add('shrink');
+  
+  setTimeout(() => {
+    profileStep1.classList.add('hidden');
+    profileStep2.classList.remove('hidden');
+    profileStep2.classList.add('slide-up');
+  }, 400);
+});
+
+profileOkStep2.addEventListener('click', () => {
+  profileOkStep2.classList.add('shrink');
+  
+  setTimeout(() => {
+    screenProfileIntro.classList.add('hidden');
+    screenProfileQ1.classList.remove('hidden');
+    
+    const firstQuestion = screenProfileQ1.querySelector('.question-card');
+    if (firstQuestion) firstQuestion.classList.remove('hidden');
+  }, 400);
+});
+
+// ========== 12. GESTIONE DOMANDE Q1 (SÌ / NO / NON SAPREI) ==========
+
+const allQuestions = Array.from(screenProfileQ1.querySelectorAll('.question-card'));
+
+function setupQuestionLogic(questionCard, index) {
+  const dataKey = questionCard.getAttribute('data-key');
+  const okLock = questionCard.querySelector('.ok-lock');
+  const radios = questionCard.querySelectorAll('input[type="radio"]');
+  
+  okLock.addEventListener('click', () => {
+    const selectedRadio = Array.from(radios).find(r => r.checked);
+    
+    if (!selectedRadio) {
+      alert('Seleziona una risposta per continuare');
+      return;
+    }
+    
+    profileAnswersQ1[dataKey] = selectedRadio.value;
+    
+    radios.forEach(r => r.disabled = true);
+    okLock.classList.add('shrink');
+    okLock.classList.add('disabled');
+    questionCard.classList.add('locked');
+    
+    setTimeout(() => {
+      currentQuestionIndex++;
+      
+      if (currentQuestionIndex < allQuestions.length) {
+        const nextQuestion = allQuestions[currentQuestionIndex];
+        nextQuestion.classList.remove('hidden');
+        nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } else {
+        console.log('Risposte Q1:', profileAnswersQ1);
+        
+        setTimeout(() => {
+          screenProfileQ1.classList.add('hidden');
+          alert('Domande Q1 completate! ' + JSON.stringify(profileAnswersQ1));
+        }, 500);
+      }
+    }, 400);
+  });
+}
+
+allQuestions.forEach((card, index) => setupQuestionLogic(card, index));
+
