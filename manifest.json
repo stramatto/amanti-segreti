@@ -1,0 +1,39 @@
+{
+  "name": "Amanti Segreti",
+  "short_name": "Amanti",
+  "description": "Anonymous live interactions at DJ club events",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#ff006e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "logohetto.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "logohetto.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "look1.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["entertainment", "lifestyle"],
+  "shortcuts": [
+    {
+      "name": "Start Session",
+      "url": "/?mode=session",
+      "icons": [{"src": "logohetto.png", "sizes": "192x192"}]
+    }
+  ]
+}
