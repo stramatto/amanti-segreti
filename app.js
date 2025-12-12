@@ -429,3 +429,4 @@ function setupQuestionLogic(questionCard, index) {
 
 allQuestions.forEach((card, index) => setupQuestionLogic(card, index));
 
+
